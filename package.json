@@ -1,0 +1,22 @@
+{
+  "name": "food-villa",
+  "version": "1.0.0",
+  "description": "Food Villa Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahul-rautwar/food-villa.git"
+  },
+  "author": "Rahul Rautwar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rahul-rautwar/food-villa/issues"
+  },
+  "homepage": "https://github.com/rahul-rautwar/food-villa#readme",
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  }
+}
