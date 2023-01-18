@@ -1,6 +1,6 @@
 import { restaurantList } from "../contants";
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // What is state
 // what is React Hooks? - functions,
@@ -15,9 +15,21 @@ function filterData(searchText, restaurants) {
 }
 
 const Body = () => {
-  const [restaurants, setRestaurants] = useState(restaurantList);
+  const [restaurants, setRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+
+  async function getRestaurants() {
+    const response = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING"
+    );
+    const data = await response.json();
+    console.log(data);
+    setRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+  }
   return (
     <>
       <div className="search-container">
