@@ -2,6 +2,7 @@ import { restaurantList } from "../contants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 // What is state
 // what is React Hooks? - functions,
@@ -62,7 +63,12 @@ const Body = () => {
       <div className="restaurant-list">
         {filteredRestaurants.map((restaurant) => {
           return (
-            <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+            <Link
+              to={"/restaurant/" + restaurant.data.id}
+              key={restaurant.data.id}
+            >
+              <RestaurantCard {...restaurant.data} />
+            </Link>
           );
         })}
       </div>

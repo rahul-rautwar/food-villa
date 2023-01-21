@@ -40,3 +40,8 @@
     background: lightgray;
     margin: 20;
 }
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
