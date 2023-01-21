@@ -1,6 +1,7 @@
 import { restaurantList } from "../contants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
 
 // What is state
 // what is React Hooks? - functions,
@@ -8,14 +9,15 @@ import { useEffect, useState } from "react";
 
 function filterData(searchText, restaurants) {
   const filterData = restaurants.filter((restaurant) =>
-    restaurantList.data.name.includes(searchText)
+    restaurant?.data?.name?.toLowerCase().includes(searchText.toLowerCase())
   );
 
   return filterData;
 }
 
 const Body = () => {
-  const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -28,9 +30,12 @@ const Body = () => {
     );
     const data = await response.json();
     console.log(data);
-    setRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+    setAllRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+    setFilteredRestaurants(data?.data?.cards[2]?.data?.data?.cards);
   }
-  return (
+  return filteredRestaurants?.length === 0 ? (
+    <Shimmer />
+  ) : (
     <>
       <div className="search-container">
         <input
@@ -46,16 +51,16 @@ const Body = () => {
           className="search-btn"
           onClick={() => {
             //need to filter the data
-            const data = filterData(searchText, restaurants);
+            const data = filterData(searchText, allRestaurants);
             // update the state - restaurants
-            setRestaurants(data);
+            setFilteredRestaurants(data);
           }}
         >
           Search
         </button>
       </div>
       <div className="restaurant-list">
-        {restaurants.map((restaurant) => {
+        {filteredRestaurants.map((restaurant) => {
           return (
             <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
           );
