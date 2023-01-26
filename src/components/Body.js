@@ -3,18 +3,11 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import { filterData } from "./../utils/helper";
 
 // What is state
 // what is React Hooks? - functions,
 // What is useState
-
-function filterData(searchText, restaurants) {
-  const filterData = restaurants.filter((restaurant) =>
-    restaurant?.data?.name?.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  return filterData;
-}
 
 const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
