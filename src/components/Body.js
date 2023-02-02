@@ -3,7 +3,8 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import { filterData } from "./../utils/helper";
+import { filterData } from "../utils/helper";
+import useOnline from "../utils/useOnline";
 
 // What is state
 // what is React Hooks? - functions,
@@ -26,6 +27,12 @@ const Body = () => {
     console.log(data);
     setAllRestaurants(data?.data?.cards[2]?.data?.data?.cards);
     setFilteredRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+  }
+
+  const isOnline = useOnline();
+
+  if (!isOnline) {
+    return <h1>you are Offline 🔴</h1>;
   }
   return filteredRestaurants?.length === 0 ? (
     <Shimmer />
@@ -50,7 +57,7 @@ const Body = () => {
             setFilteredRestaurants(data);
           }}
         >
-          Search
+          Searc
         </button>
       </div>
       <div className="restaurant-list">
