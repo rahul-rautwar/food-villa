@@ -27,8 +27,12 @@ const Body = () => {
     );
     const data = await response.json();
     console.log(data);
-    setAllRestaurants(data?.data?.cards[2]?.data?.data?.cards);
-    setFilteredRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+    setAllRestaurants(
+      data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setFilteredRestaurants(
+      data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   }
 
   const isOnline = useOnline();
@@ -40,7 +44,7 @@ const Body = () => {
     <Shimmer />
   ) : (
     <>
-      <div className="search-container p-5 bg-pink-50 my-5">
+      <div className="search-container p-5 bg-pink-50 border border-top-black  ">
         <input
           type="text"
           className="focus:bg-green-100 p-2 m-2"
@@ -61,7 +65,7 @@ const Body = () => {
         >
           Search
         </button>
-        <input
+        {/* <input
           value={user.name}
           onChange={(e) =>
             setUser({
@@ -78,16 +82,16 @@ const Body = () => {
               email: e.target.value,
             })
           }
-        />
+        /> */}
       </div>
       <div className="flex flex-wrap">
         {filteredRestaurants?.map((restaurant) => {
           return (
             <Link
-              to={"/restaurant/" + restaurant.data.id}
-              key={restaurant.data.id}
+              to={"/restaurant/" + restaurant?.info?.id}
+              key={restaurant?.info?.id}
             >
-              <RestaurantCard {...restaurant.data} />
+              <RestaurantCard {...restaurant?.info} />
             </Link>
           );
         })}
